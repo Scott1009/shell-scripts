@@ -1,0 +1,13 @@
+#!/bin/bash
+
+arg1=$1
+
+# If no argument, it's a pipe/filter.  Otherwise assume the argument is a filename.
+if [ -z "${arg1}" ]; then
+    exec tr -s '\r' '\n'
+else
+    cat $arg1 | tr -s '\r' '\n' > ${arg1}.tmp
+    \mv -f ${arg1} ${arg1}.bak
+    \mv ${arg1}.tmp ${arg1}
+fi
+

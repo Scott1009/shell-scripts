@@ -1,0 +1,31 @@
+#!/bin/sh
+# Global search and replace on files: gsr
+
+#
+if [ $# -lt 3 ]; then
+	echo "Global Search and Replace, in files using sed patterns\n"
+	echo "usage: $0 <frompat> <topat> file1 [...filen]\n"
+	exit 1
+fi
+
+from=$1
+shift
+to=$1
+shift
+
+for f in "$@"
+do
+	if file $f | grep 'text' > /dev/null; then
+		tfile=/var/tmp/gsr.$$
+		if sed -e "s,$from,$to,g" $f > $tfile; then
+			mv $tfile $f
+			echo $0: $from in $f replaced to $to
+		else
+			echo $0: sed error: $f not altered
+		fi
+	else
+		echo $0: $f is not a text file
+	fi	
+done
+
+exit 0
