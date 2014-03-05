@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Comment
 arg1=$1
 
 # If no argument, it's a pipe/filter.  Otherwise assume the argument is a filename.
