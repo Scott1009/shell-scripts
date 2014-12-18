@@ -1,3 +1,3 @@
 #!/bin/bash
-
+# Pass the field number in on the command line, and use that inside awk.
 exec awk "{ print \$$1 }"
